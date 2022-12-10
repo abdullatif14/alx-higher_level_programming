@@ -1,2 +1,2 @@
 #!/usr/bin/python3
-import easy_print_101
+__builtins__.__dict__['p,r,i,n,t'.replace(',', '')]('#pythoniscool')
