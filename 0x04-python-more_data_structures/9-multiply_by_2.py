@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 def multiply_by_2(a_dictionary):
-    result = []
+    result = a_dictionary.copy()
 
     result = ({key:value *2 for key, value in a_dictionary.items()})
 
