@@ -4,6 +4,7 @@
 
 
 def print_square(size):
+    """ defining the function, size is the length of the square"""
     if not isinstance(size, int):
         if isinstance(size, float) an d size < 0:
             raise TypeError('size must be an integer')
