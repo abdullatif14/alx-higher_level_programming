@@ -1,64 +1,67 @@
 #!/usr/bin/python3
-"""Unittest for max_integer([..])
-"""
-import unittest
-max_integer = __import__('6-max_integer').max_integer
+
+"""Defines a matrix multiplication function."""
 
 
-class TestMaxInteger(unittest.TestCase):
+def matrix_mul(m_a, m_b):
+    """Multiply two matrices.
+    Args:
+        m_a (list of lists of ints/floats): The first matrix.
+        m_b (list of lists of ints/floats): The second matrix.
+    Raises:
+        TypeError: If either m_a or m_b is not a list of lists of ints/floats.
+        TypeError: If either m_a or m_b is empty.
+        TypeError: If either m_a or m_b has different-sized rows.
+        ValueError: If m_a and m_b cannot be multiplied.
+    Returns:
+        A new matrix representing the multiplication of m_a by m_b.
+    """
 
-    """Suite test for max_integer function"""
+    if m_a == [] or m_a == [[]]:
+        raise ValueError("m_a can't be empty")
+    if m_b == [] or m_b == [[]]:
+        raise ValueError("m_b can't be empty")
 
-    def test_max_integer(self):
-        self.assertEqual(max_integer([5, -2, 100, 3]), 100)
+    if not isinstance(m_a, list):
+        raise TypeError("m_a must be a list")
+    if not isinstance(m_b, list):
+        raise TypeError("m_b must be a list")
 
-    def test_empty_list(self):
-        self.assertEqual(max_integer([]), None)
+    if not all(isinstance(row, list) for row in m_a):
+        raise TypeError("m_a must be a list of lists")
+    if not all(isinstance(row, list) for row in m_b):
+        raise TypeError("m_b must be a list of lists")
 
-    def test_repeated_number(self):
-        self.assertEqual(max_integer([1000, 1000, 1000]), 1000)
+    if not all((isinstance(ele, int) or isinstance(ele, float))
+               for ele in [num for row in m_a for num in row]):
+        raise TypeError("m_a should contain only integers or floats")
+    if not all((isinstance(ele, int) or isinstance(ele, float))
+               for ele in [num for row in m_b for num in row]):
+        raise TypeError("m_b should contain only integers or floats")
 
-    def test_float_numbers(self):
-        self.assertEqual(max_integer([50, 51, 50, 49]), 51)
+    if not all(len(row) == len(m_a[0]) for row in m_a):
+        raise TypeError("each row of m_a must should be of the same size")
+    if not all(len(row) == len(m_b[0]) for row in m_b):
+        raise TypeError("each row of m_b must should be of the same size")
 
-    def test_max_operated_integer(self):
-        self.assertEqual(max_integer([-3, -5 * -5, 12, -1]), 25)
+    if len(m_a[0]) != len(m_b):
+        raise ValueError("m_a and m_b can't be multiplied")
 
-    def test_neg_numbers(self):
-        self.assertEqual(max_integer([-10, -5, -2, -1]), -1)
+    inverted_b = []
+    for r in range(len(m_b[0])):
+        new_row = []
+        for c in range(len(m_b)):
+            new_row.append(m_b[c][r])
+        inverted_b.append(new_row)
 
-    def test_max_at_beginning(self):
-        self.assertEqual(max_integer([5, 4, 3, 2, 1]), 5)
+    new_matrix = []
+    for row in m_a:
+        new_row = []
+        for col in inverted_b:
+            prod = 0
+            for i in range(len(inverted_b[0])):
+                prod += row[i] * col[i]
+            new_row.append(prod)
+        new_matrix.append(new_row)
 
-    def test_zero_number(self):
-        self.assertEqual(max_integer([0, 0]), 0)
-
-    def test_big_list(self):
-        self.assertEqual(max_integer([
-            901, 902, 903, 904, 905, 906, 907, 908, 909, 910,
-            911, 912, 913, 914, 915, 916, 917, 918, 919, 920,
-            919, 918, 917, 1000, 915, 914, 913, 912, 911, 910,
-            909, 908, 907, 906, 905, 904, 903, 902, 901]), 1000)
-
-    def test_list_with_loop(self):
-        my_list = [1, 2, 3, 4, 5]
-        self.assertEqual(max_integer([i * 5 for i in my_list]), 25)
-
-    def test_one_number_in_a_list(self):
-        self.assertEqual(max_integer([1]), 1)
-
-    def test_string_number_in_a_list(self):
-        with self.assertRaises(TypeError):
-            max_integer([0, '1'])
-
-    def test_tuple_in_a_list(self):
-        with self.assertRaises(TypeError):
-            max_integer([10, (20, 30)])
-
-    def test_dictionary(self):
-        with self.assertRaises(KeyError):
-            max_integer({'key1': 1, 'key2': 2})
-
-    def test_number(self):
-        with self.assertRaises(TypeError):
-            max_integer(1)
+    return new_matrix
