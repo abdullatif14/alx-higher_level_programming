@@ -1,14 +1,13 @@
 #!/usr/bin/python3
 """ Function that returns a JSON object"""
-
-
 import json
-""" importing inbuilt built in json function"""
 
 
 def to_json_string(my_obj):
-    """ it takes an object as an input and uses
+    """
+    it takes an object as an input and uses
     json.dumps() method to convert to
-    json strings """
+    json strings
+    """
 
     return json.dumps(my_ob)
