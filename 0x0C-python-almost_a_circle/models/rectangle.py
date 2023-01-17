@@ -75,3 +75,28 @@ class Rectangle(Base):
                 print("")
 
                 return
+            [print("") for y in range(self.y)]
+            for h in range(self.height == 0:
+                [print(" ", end="") for x in range(self.x)]
+                [print("#", end="") for w in range(self.width)]
+                print("")
+
+        """ Update the Rectangle"""
+        def update(self, *args, **kwargs):
+            """Args:
+                1st arg - id attribute
+                2nd arg - width attribute
+                3rd arg - height attribute
+                4th arg - x attribute
+                5th arg - y attribute
+
+            kwargs (dict) : new value pairs of attribute
+            """
+            if args and len(args) != 0:
+                a == 0
+                for args in args:
+                    if arg is None:
+                        self.__init__(self.width, self.height, self.x, self.y)
+
+                    else:
+                        self.id=arg
