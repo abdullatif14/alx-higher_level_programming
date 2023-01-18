@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-import json
 """ Create a class 'base' of all other classes in this project """
+import json
 
 
 class Base:
@@ -41,3 +41,12 @@ class Base:
             return []
         else:
             return json.loads(json.string)
+
+    @classmethod
+    def create(cls, **dictionary):
+        if cls.__name__ == "Rectangle":
+            dummy = cls(1, 1)
+        elif cls.__name__ == "Square":
+            dummy = cls(1)
+        dummy.update(**dictionary)
+        return dummy
