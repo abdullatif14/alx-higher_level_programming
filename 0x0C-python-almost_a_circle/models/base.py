@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import json
 """ Create a class 'base' of all other classes in this project """
 
 
@@ -33,3 +34,10 @@ class Base:
         json_string = cls.to_json_string(list_dict)
         with open(cls.__name__ + ".json", "w") as f:
             f.write(json_string)
+
+    @staticmethod
+    def from_json_string(json_string):
+        if json_string is None or json_string == "":
+            return []
+        else:
+            return json.loads(json.string)
