@@ -1,18 +1,22 @@
 #!/usr/bin/python3
 """
-    script that takes in the name of a state as an argument and lists
-    all cities of that state, using the database hbtn_0e_4_usa
+Defines a State model.
+Inherits from SQLAlchemy Base and links to the MySQL table states.
 """
-from sys import argv
-import MySQLdb
-import sqlalchemy
+
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
 
 
-if __name__ == "__main__":
-    conn = MySQLdb.connect(user=argv[1], passwd=argv[2], db=argv[3])
-    cur = conn.cursor()
-    cur.execute("""SELECT * FROM cities INNER JOIN states
-                ON cities.state_id = states.id
-                ORDER BY cities.id""")
-    print(", ".join([city[2] for city in cur.fetchall()
-                     if city[4] == argv[4]]))
+class State(Base):
+    """Represents a state for a MySQL database.
+    __tablename__ (str): The name of the MySQL table to store States.
+    id (sqlalchemy.Integer): The state's id.
+    name (sqlalchemy.String): The state's name.
+    """
+    __tablename__ = "states"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(128), nullable=False)
+
