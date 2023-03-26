@@ -5,6 +5,8 @@
 """
 from sys import argv
 import MySQLdb
+import sqlalchemy
+
 
 if __name__ == "__main__":
     conn = MySQLdb.connect(user=argv[1], passwd=argv[2], db=argv[3])
